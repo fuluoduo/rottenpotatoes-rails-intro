@@ -11,13 +11,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if request.original_url =~ /title/
-	@movies = Movie.order('title ASC')
-    elsif request.original_url =~ /release/
-	@movies = Movie.order('release_date ASC')    
-    else
-        @movies = Movie.all
-    end
+    @all_ratings = Movie.all.map{|r| r.rating}
+    
+    params[:ratings].nil? ? @rating_filter = @all_ratings : @rating_filter=params[:ratings].keys
+    
+    order=params[:order]    
+    
+    @movies = Movie.where(:rating => @rating_filter).order("#{order}")
   end
 
   def new
