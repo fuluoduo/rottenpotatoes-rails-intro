@@ -28,6 +28,7 @@ class MoviesController < ApplicationController
     end
      
     @movies = Movie.where(:rating => @rating_filter).order(@sort)
+    #redirect_to movies_path(@movie)
   end
 
   def new

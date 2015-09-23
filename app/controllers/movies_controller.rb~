@@ -27,7 +27,8 @@ class MoviesController < ApplicationController
       session[:sort] = params[:sort]
     end
      
-    @movies = Movie.where(:rating => @rating_filter).order("#{order}")
+    @movies = Movie.where(:rating => @rating_filter).order(@sort)
+    redirect_to movies_path(@movie)
   end
 
   def new
