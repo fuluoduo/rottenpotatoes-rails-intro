@@ -17,17 +17,18 @@ class MoviesController < ApplicationController
       @rating_filter = @all_ratings 
     else
       @rating_filter=params[:ratings].keys
-      session[:ratings]=params[:ratings]
+      #session[:ratings]=params[:ratings]
     end
-    @rating_filter=session[:ratings].keys unless session[:ratings].nil?
-    if params[:sort].nil?
-      @sort = session[:sort] 
-    else
-      @sort = params[:sort]
-      session[:sort] = params[:sort]
-    end
-     
-    @movies = Movie.where(:rating => @rating_filter).order(@sort)
+    
+    #@rating_filter=session[:ratings].keys unless session[:ratings].nil?
+    #if params[:sort].nil?
+    #  @sort = session[:sort] 
+    #else
+     # @sort = params[:sort]
+     # session[:sort] = params[:sort]
+    #end
+    order = params[:order]
+    @movies = Movie.where(:rating => @rating_filter).order(order)
     #redirect_to movies_path(@movie)
   end
 
